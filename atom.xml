@@ -6,7 +6,7 @@
   <link href="https://denny-blog.github.io/site/atom.xml" rel="self"/>
   
   <link href="https://denny-blog.github.io/site/"/>
-  <updated>2021-02-23T02:33:49.876Z</updated>
+  <updated>2021-02-23T02:36:57.204Z</updated>
   <id>https://denny-blog.github.io/site/</id>
   
   <author>
@@ -21,10 +21,12 @@
     <link href="https://denny-blog.github.io/site/2021/02/23/test/"/>
     <id>https://denny-blog.github.io/site/2021/02/23/test/</id>
     <published>2021-02-23T02:33:27.000Z</published>
-    <updated>2021-02-23T02:33:49.876Z</updated>
+    <updated>2021-02-23T02:36:57.204Z</updated>
     
     
     
+    
+    <category term="类目一" scheme="https://denny-blog.github.io/site/categories/%E7%B1%BB%E7%9B%AE%E4%B8%80/"/>
     
     
     <category term="测试" scheme="https://denny-blog.github.io/site/tags/%E6%B5%8B%E8%AF%95/"/>
