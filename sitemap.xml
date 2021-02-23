@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://denny-blog.github.io/site/about/index.html</loc>
+    
+    <lastmod>2021-02-23</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://denny-blog.github.io/site/2021/02/23/test/</loc>
     
     <lastmod>2021-02-23</lastmod>
@@ -38,13 +45,6 @@
   
   <url>
     <loc>https://denny-blog.github.io/site/books/index.html</loc>
-    
-    <lastmod>2021-02-22</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://denny-blog.github.io/site/about/index.html</loc>
     
     <lastmod>2021-02-22</lastmod>
     
