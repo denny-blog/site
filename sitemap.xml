@@ -2,35 +2,35 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://denny-blog.github.io/site/about/index.html</loc>
+    <loc>http://blog.dennys.ink/about/index.html</loc>
     
     <lastmod>2021-02-23</lastmod>
     
   </url>
   
   <url>
-    <loc>https://denny-blog.github.io/site/2021/02/23/GitHub-Hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E8%AE%B0%E5%BD%95/</loc>
+    <loc>http://blog.dennys.ink/2021/02/23/GitHub-Hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E8%AE%B0%E5%BD%95/</loc>
     
     <lastmod>2021-02-23</lastmod>
     
   </url>
   
   <url>
-    <loc>https://denny-blog.github.io/site/2021/02/23/Hexo-Pure%E4%B8%BB%E9%A2%98%E4%BD%BF%E7%94%A8/</loc>
+    <loc>http://blog.dennys.ink/2021/02/23/Hexo-Pure%E4%B8%BB%E9%A2%98%E4%BD%BF%E7%94%A8/</loc>
     
     <lastmod>2021-02-23</lastmod>
     
   </url>
   
   <url>
-    <loc>https://denny-blog.github.io/site/tags/index.html</loc>
+    <loc>http://blog.dennys.ink/tags/index.html</loc>
     
     <lastmod>2021-02-22</lastmod>
     
   </url>
   
   <url>
-    <loc>https://denny-blog.github.io/site/categories/index.html</loc>
+    <loc>http://blog.dennys.ink/categories/index.html</loc>
     
     <lastmod>2021-02-22</lastmod>
     
@@ -38,7 +38,7 @@
   
 
   <url>
-    <loc>https://denny-blog.github.io/site</loc>
+    <loc>http://blog.dennys.ink/</loc>
     <lastmod>2021-02-24</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
@@ -46,7 +46,7 @@
 
   
   <url>
-    <loc>https://denny-blog.github.io/site/tags/blog/</loc>
+    <loc>http://blog.dennys.ink/tags/blog/</loc>
     <lastmod>2021-02-24</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -55,7 +55,7 @@
 
   
   <url>
-    <loc>https://denny-blog.github.io/site/categories/blog/</loc>
+    <loc>http://blog.dennys.ink/categories/blog/</loc>
     <lastmod>2021-02-24</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>

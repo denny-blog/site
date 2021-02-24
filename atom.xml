@@ -3,11 +3,11 @@
   <title>Hexo</title>
   
   
-  <link href="https://denny-blog.github.io/site/atom.xml" rel="self"/>
+  <link href="http://blog.dennys.ink/atom.xml" rel="self"/>
   
-  <link href="https://denny-blog.github.io/site/"/>
+  <link href="http://blog.dennys.ink/"/>
   <updated>2021-02-23T03:32:25.975Z</updated>
-  <id>https://denny-blog.github.io/site/</id>
+  <id>http://blog.dennys.ink/</id>
   
   <author>
     <name>John Doe</name>
@@ -18,25 +18,25 @@
   
   <entry>
     <title>Hexo+Pure主题使用</title>
-    <link href="https://denny-blog.github.io/site/2021/02/23/Hexo-Pure%E4%B8%BB%E9%A2%98%E4%BD%BF%E7%94%A8/"/>
-    <id>https://denny-blog.github.io/site/2021/02/23/Hexo-Pure%E4%B8%BB%E9%A2%98%E4%BD%BF%E7%94%A8/</id>
+    <link href="http://blog.dennys.ink/2021/02/23/Hexo-Pure%E4%B8%BB%E9%A2%98%E4%BD%BF%E7%94%A8/"/>
+    <id>http://blog.dennys.ink/2021/02/23/Hexo-Pure%E4%B8%BB%E9%A2%98%E4%BD%BF%E7%94%A8/</id>
     <published>2021-02-23T03:32:16.000Z</published>
     <updated>2021-02-23T03:32:25.975Z</updated>
     
     
     
     
-    <category term="blog" scheme="https://denny-blog.github.io/site/categories/blog/"/>
+    <category term="blog" scheme="http://blog.dennys.ink/categories/blog/"/>
     
     
-    <category term="blog" scheme="https://denny-blog.github.io/site/tags/blog/"/>
+    <category term="blog" scheme="http://blog.dennys.ink/tags/blog/"/>
     
   </entry>
   
   <entry>
     <title>GitHub+Hexo博客搭建记录</title>
-    <link href="https://denny-blog.github.io/site/2021/02/23/GitHub-Hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E8%AE%B0%E5%BD%95/"/>
-    <id>https://denny-blog.github.io/site/2021/02/23/GitHub-Hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E8%AE%B0%E5%BD%95/</id>
+    <link href="http://blog.dennys.ink/2021/02/23/GitHub-Hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E8%AE%B0%E5%BD%95/"/>
+    <id>http://blog.dennys.ink/2021/02/23/GitHub-Hexo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E8%AE%B0%E5%BD%95/</id>
     <published>2021-02-23T03:29:14.000Z</published>
     <updated>2021-02-23T03:36:27.005Z</updated>
     
@@ -50,10 +50,10 @@
     
     
     
-    <category term="blog" scheme="https://denny-blog.github.io/site/categories/blog/"/>
+    <category term="blog" scheme="http://blog.dennys.ink/categories/blog/"/>
     
     
-    <category term="blog" scheme="https://denny-blog.github.io/site/tags/blog/"/>
+    <category term="blog" scheme="http://blog.dennys.ink/tags/blog/"/>
     
   </entry>
   
