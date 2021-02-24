@@ -39,7 +39,7 @@
 
   <url>
     <loc>https://denny-blog.github.io/site</loc>
-    <lastmod>2021-02-23</lastmod>
+    <lastmod>2021-02-24</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -47,7 +47,7 @@
   
   <url>
     <loc>https://denny-blog.github.io/site/tags/blog/</loc>
-    <lastmod>2021-02-23</lastmod>
+    <lastmod>2021-02-24</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
@@ -56,7 +56,7 @@
   
   <url>
     <loc>https://denny-blog.github.io/site/categories/blog/</loc>
-    <lastmod>2021-02-23</lastmod>
+    <lastmod>2021-02-24</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
