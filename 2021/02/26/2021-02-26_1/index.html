@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000" />
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top" />
+  
+  
+  <title>优雅的使用设计模式-观察者模式 | Denny&#39;s Blog</title>
+  <meta name="description" content="观察者模式观察者模式（Observer），定义对象间一种一对多的依赖关系，使得每当一个对象改变状态，则所有依赖于它的对象都会得到通知并自动更新，其主要解决一个对象状态改变给其他关联对象通知的问题，保证易用和低耦合。 下面举个栗子日常系统中的用户注册功能，通常注册完了会给其账号发放对应的优惠券或者邀请码，一般刚开始写代码的时候我们可能都会把发优惠券和发放邀请码的业务注入到注册逻辑中执行，例如下面的写">
+<meta property="og:type" content="article">
+<meta property="og:title" content="优雅的使用设计模式-观察者模式">
+<meta property="og:url" content="http://blog.dennys.ink/2021/02/26/2021-02-26_1/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="观察者模式观察者模式（Observer），定义对象间一种一对多的依赖关系，使得每当一个对象改变状态，则所有依赖于它的对象都会得到通知并自动更新，其主要解决一个对象状态改变给其他关联对象通知的问题，保证易用和低耦合。 下面举个栗子日常系统中的用户注册功能，通常注册完了会给其账号发放对应的优惠券或者邀请码，一般刚开始写代码的时候我们可能都会把发优惠券和发放邀请码的业务注入到注册逻辑中执行，例如下面的写">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://blog.dennys.ink/2021/02/26/2021-02-26_1/log.jpg">
+<meta property="article:published_time" content="2021-02-26T06:26:32.000Z">
+<meta property="article:modified_time" content="2021-02-26T09:06:52.673Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="设计模式">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://blog.dennys.ink/2021/02/26/2021-02-26_1/log.jpg">
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://blog.dennys.ink/2021/02/26/2021-02-26_1/index.html">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body class="main-center" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="" target="_blank">
+          <img class="img-circle img-rotate" src="/images/head.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">秋裤忘了穿</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md"></h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> 杭州, 中国</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav ">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 13px;">设计模式</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">二月 2021</a><span class="archive-list-count">2</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/Java/">Java</a>
+              </p>
+              <p class="item-title">
+                <a href="/2021/02/26/2021-02-26_1/" class="title">优雅的使用设计模式-观察者模式</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-02-26T06:26:32.000Z" itemprop="datePublished">2021-02-26</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                
+              </p>
+              <p class="item-title">
+                <a href="/2021/02/25/%E5%8D%9A%E5%AE%A2%E5%88%9A%E5%BC%80%E9%80%9A/" class="title">博客刚开通</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2021-02-25T03:25:51.000Z" itemprop="datePublished">2021-02-25</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-2021-02-26_1" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      优雅的使用设计模式-观察者模式
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2021/02/26/2021-02-26_1/" class="article-date">
+	  <time datetime="2021-02-26T06:26:32.000Z" itemprop="datePublished">2021-02-26</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/Java/">Java</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link-link" href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag">设计模式</a>
+  </span>
+
+
+        
+	<span class="article-read hidden-xs">
+	    <i class="icon icon-eye-fill" aria-hidden="true"></i>
+	    <span id="busuanzi_container_page_pv">
+			<span id="busuanzi_value_page_pv">0</span>
+		</span>
+	</span>
+
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2021/02/26/2021-02-26_1/#comments" class="article-comment-link">评论</a></span>
+        
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h4 id="观察者模式"><a href="#观察者模式" class="headerlink" title="观察者模式"></a>观察者模式</h4><p>观察者模式（Observer），定义对象间一种一对多的依赖关系，使得每当一个对象改变状态，则所有依赖于它的对象都会得到通知并自动更新，其主要解决一个对象状态改变给其他关联对象通知的问题，保证易用和低耦合。</p>
+<h4 id="下面举个栗子"><a href="#下面举个栗子" class="headerlink" title="下面举个栗子"></a>下面举个栗子</h4><p>日常系统中的用户注册功能，通常注册完了会给其账号发放对应的优惠券或者邀请码，一般刚开始写代码的时候我们可能都会把发优惠券和发放邀请码的业务注入到注册逻辑中执行，例如下面的写法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> denny</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@ClassName</span> UserRegServiceImpl</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span> 用户注册实现类</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@createTime</span> 2021-02-26</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserRegServiceImpl</span> <span class="keyword">implements</span> <span class="title">UserRegService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> CouponService couponService;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> InvitationCodeService invitationCodeService;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">reg</span><span class="params">(String username)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//注册业务</span></span><br><span class="line">        log.info(<span class="string">&quot;&#123;&#125;注册成功&quot;</span>, username);</span><br><span class="line">        <span class="comment">//注册成功发优惠券</span></span><br><span class="line">        couponService.addCoupon();</span><br><span class="line">        <span class="comment">//发邀请码</span></span><br><span class="line">        invitationCodeService.sendInvitationCode();</span><br><span class="line">       </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这样的写法对于业务处理来说也没啥问题无非就是会把优惠券和邀请码的一些业务耦合进来，当然像这样场景的松耦合用MQ也是可以处理的，本节我们先着重用观察者模式来演示下松耦合。</p>
+<h5 id="1-创建一个接口UserRegService"><a href="#1-创建一个接口UserRegService" class="headerlink" title="1.创建一个接口UserRegService"></a>1.创建一个接口UserRegService</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> denny</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@ClassName</span> UserRegService</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span> 用户注册</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@createTime</span> 2021-02-26</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">UserRegService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">reg</span><span class="params">(String username)</span></span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="2-创建一个事件UserRegEvent继承ApplicationEvent来实现我们的自定义事件"><a href="#2-创建一个事件UserRegEvent继承ApplicationEvent来实现我们的自定义事件" class="headerlink" title="2.创建一个事件UserRegEvent继承ApplicationEvent来实现我们的自定义事件"></a>2.创建一个事件UserRegEvent继承ApplicationEvent来实现我们的自定义事件</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> wcj</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@ClassName</span> UserRegEvent</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span> 用户注册事件</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@createTime</span> 2021-02-26</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserRegEvent</span> <span class="keyword">extends</span> <span class="title">ApplicationEvent</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 用户名</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> String username;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Constructs a prototypical Event.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> source The object on which the Event initially occurred.</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> IllegalArgumentException if source is null.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">UserRegEvent</span><span class="params">(Object source)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(source);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">UserRegEvent</span><span class="params">(Object source, String username)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(source);</span><br><span class="line">        <span class="keyword">this</span>.username = username;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getUsername</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> username;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="3-接下来创建一个接口实现类UserRegServiceImpl实现我们的注册Service和ApplicationEventPublisherAware通过实现它，来发布变更事件"><a href="#3-接下来创建一个接口实现类UserRegServiceImpl实现我们的注册Service和ApplicationEventPublisherAware通过实现它，来发布变更事件" class="headerlink" title="3.接下来创建一个接口实现类UserRegServiceImpl实现我们的注册Service和ApplicationEventPublisherAware通过实现它，来发布变更事件"></a>3.接下来创建一个接口实现类UserRegServiceImpl实现我们的注册Service和ApplicationEventPublisherAware通过实现它，来发布变更事件</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> denny</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@ClassName</span> UserRegServiceImpl</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span> 用户注册实现类</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@createTime</span> 2021-02-26</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserRegServiceImpl</span> <span class="keyword">implements</span> <span class="title">ApplicationEventPublisherAware</span>, <span class="title">UserRegService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> ApplicationEventPublisher applicationEventPublisher;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setApplicationEventPublisher</span><span class="params">(ApplicationEventPublisher applicationEventPublisher)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.applicationEventPublisher = applicationEventPublisher;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">reg</span><span class="params">(String username)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//注册</span></span><br><span class="line">        log.info(<span class="string">&quot;&#123;&#125;注册成功&quot;</span>, username);</span><br><span class="line">        <span class="comment">//发布</span></span><br><span class="line">        log.info(<span class="string">&quot;发布注册成功事件&quot;</span>);</span><br><span class="line">        applicationEventPublisher.publishEvent(<span class="keyword">new</span> UserRegEvent(<span class="keyword">this</span>, username));</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="4-分别创建一个用于发送新人优惠券和发送邀请码的处理类InvitationCodeManager、CouponManager，其中InvitationCodeManager实现了ApplicationEventListener通过实现它，来监听指定类型事件并响应动作，CouponManager我们使用另一种监听方式用注解-EventListener来实现监听"><a href="#4-分别创建一个用于发送新人优惠券和发送邀请码的处理类InvitationCodeManager、CouponManager，其中InvitationCodeManager实现了ApplicationEventListener通过实现它，来监听指定类型事件并响应动作，CouponManager我们使用另一种监听方式用注解-EventListener来实现监听" class="headerlink" title="4.分别创建一个用于发送新人优惠券和发送邀请码的处理类InvitationCodeManager、CouponManager，其中InvitationCodeManager实现了ApplicationEventListener通过实现它，来监听指定类型事件并响应动作，CouponManager我们使用另一种监听方式用注解@EventListener来实现监听"></a>4.分别创建一个用于发送新人优惠券和发送邀请码的处理类InvitationCodeManager、CouponManager，其中InvitationCodeManager实现了ApplicationEventListener通过实现它，来监听指定类型事件并响应动作，CouponManager我们使用另一种监听方式用注解@EventListener来实现监听</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> denny</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@ClassName</span> InvitationCodeManager</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span> 发放邀请码</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@createTime</span> 2021-02-26</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">InvitationCodeManager</span> <span class="keyword">implements</span> <span class="title">ApplicationListener</span>&lt;<span class="title">UserRegEvent</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onApplicationEvent</span><span class="params">(UserRegEvent userRegEvent)</span> </span>&#123;</span><br><span class="line">        log.info(<span class="string">&quot;&#123;&#125;注册成功，开始发放邀请码...&quot;</span>, userRegEvent.getUsername());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> denny</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@ClassName</span> CouponManager</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span> 发送新人优惠券</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@createTime</span> 2021-02-26</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CouponManager</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@EventListener</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addCoupon</span><span class="params">(UserRegEvent userRegEvent)</span> </span>&#123;</span><br><span class="line">        log.info(<span class="string">&quot;&#123;&#125;注册成功，开始发送新人优惠券...&quot;</span>, userRegEvent.getUsername());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h5 id="5-上单测运行一下看看效果～"><a href="#5-上单测运行一下看看效果～" class="headerlink" title="5.上单测运行一下看看效果～"></a>5.上单测运行一下看看效果～</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">@SpringBootTest</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DesignPatternApplicationTests</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Resource</span></span><br><span class="line">    <span class="keyword">private</span> UserRegService userRegService;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">contextLoads</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        userRegService.reg(<span class="string">&quot;Denny&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="6-运行结果控制台输出对应日志"><a href="#6-运行结果控制台输出对应日志" class="headerlink" title="6.运行结果控制台输出对应日志"></a>6.运行结果控制台输出对应日志</h5><p><img src="/2021/02/26/2021-02-26_1/log.jpg"></p>
+
+      
+    </div>
+    <div class="article-footer">
+       <!--<blockquote class="mt-2x">
+ <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://blog.dennys.ink/2021/02/26/2021-02-26_1/" title="优雅的使用设计模式-观察者模式" target="_blank" rel="external">http://blog.dennys.ink/2021/02/26/2021-02-26_1/</a>
+    </li>
+     
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>-->
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/head.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="" target="_blank"><span class="text-dark">秋裤忘了穿</span><small class="ml-1x"></small></a></h3>
+        <div></div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    
+    <li class="next">
+      <a href="/2021/02/25/%E5%8D%9A%E5%AE%A2%E5%88%9A%E5%BC%80%E9%80%9A/" title="博客刚开通"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat" data-mobile-sites="weibo,qq,wechat"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+	<!--
+	
+    <div class="copyright">
+    	
+        <div class="publishby">
+        	Theme by  
+        	<a href="https://github.com/cofess" target="_blank"> cofess </a>
+        	base on 
+        	<a href="https://github.com/cofess/hexo-theme-pure"target="_blank">pure
+        	</a>.
+        </div>
+    </div>
+    -->
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+
+<script src="/js/plugin.min.js"></script>
+
+
+<script src="/js/application.js"></script>
+
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+
+
+
+
+   
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: '00XH7R4uYLrqCnCNC3IB7Cvs-gzGzoHsz',
+    appKey: 'GtFWMtG3RolQMJgJECDOcUl4',
+    placeholder: '说点什么...',
+    avatar: 'monsterid',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+  </script>
+
+     
+
+
+
+
+
+
+
+</body>
+</html>
